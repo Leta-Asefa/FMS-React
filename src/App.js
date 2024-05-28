@@ -8,6 +8,7 @@ import Signup from './Components/Auth/SignUp';
 import Login from './Components/Auth/Login';
 import FolderList from './Components/FolderList';
 import Home from './Components/Home';
+import PathBar from './Components/Partials/PathBar';
 
 function App() {
   return (
@@ -15,15 +16,18 @@ function App() {
 
 
     <Router>
-       <Navbar />
+      <Navbar />
 
       <div className='flex'>
         <div className='flex-none'><SideBar /></div>
         <div className='flex-grow bg-slate-200'>
           <MenuBar />
+          <PathBar/>
+          <div>
           <Routes>
-            <Route path="/home" element={<Home />} />
-          </Routes>
+            <Route path="/home/:id?" element={<Home />} />
+            </Routes>
+          </div>
         </div>
       </div>
 
