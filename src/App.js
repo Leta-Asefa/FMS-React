@@ -9,6 +9,7 @@ import Login from './Components/Auth/Login';
 import FolderList from './Components/FolderList';
 import Home from './Components/Home';
 import PathBar from './Components/Partials/PathBar';
+import CreateNewFolder from './Components/PopUps/CreateNewFolder';
 
 function App() {
   return (
@@ -32,7 +33,6 @@ function App() {
       </div>
 
       <Footer />
-
     </Router>
   );
 }
