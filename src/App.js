@@ -10,6 +10,9 @@ import FolderList from './Components/FolderList';
 import Home from './Components/Home';
 import PathBar from './Components/Partials/PathBar';
 import CreateNewFolder from './Components/PopUps/CreateNewFolder';
+import AddUsers from './Components/AddUsers';
+import UsersControl from './Components/UsersControl';
+import ChangePassword from './Components/ChangePassword';
 
 function App() {
   return (
@@ -26,8 +29,11 @@ function App() {
           <PathBar/>
           <div>
           <Routes>
-            <Route path="/home/:id?" element={<Home />} />
-            </Routes>
+              <Route path="/home/:id?" element={<Home />} />
+              <Route path="/adduser" element={<AddUsers />} />
+              <Route path="/alloweduser" element={<UsersControl />} />
+              <Route path="/changepassword" element={<ChangePassword />} />
+           </Routes>
           </div>
         </div>
       </div>
