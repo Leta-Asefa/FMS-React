@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.active-link-bg{
+  @apply bg-slate-300;
+}
+/* --------------------------------------------------------Change Password--------------------------------------------------- */
+.change-password-container{
+  @apply bg-slate-300 mx-auto w-96 mt-3 rounded-lg p-3;
+ 
+}
+
+.change-password-input{
+  @apply  rounded-md px-3 py-1;
+}
+.change-password-input-container{
+  @apply  mt-1 flex justify-between text-sm items-center;
+}
+
+/* --------------------------------------------------------Pop up--------------------------------------------------- */
+
+
+.popup-overlay {
+  @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center;
+}
+
+.popup-box {
+  @apply bg-white p-8 rounded-lg shadow-lg;
+}
+
+.input-field {
+  @apply border border-gray-300 p-2 rounded mt-2 w-full;
+}
+
+.button {
+  @apply bg-blue-500 text-white py-2 px-4 rounded mt-4;
+}
+
+.close-button {
+  @apply absolute top-2 right-2 text-gray-500 cursor-pointer;
+}
+
+
+/* --------------------------------------------------------Folder--------------------------------------------------- */
+
+.folder {
+  @apply flex flex-col items-center p-3 border border-gray-300 rounded-lg hover:border-black active:bg-gray-400 overflow-hidden min-h-40 max-h-40 ;
+}
+
+.folder-icon {
+  @apply bg-gray-300 p-6 rounded-md mb-2;
+}
+
+.folder-name {
+  @apply text-center text-gray-700 font-medium;
+}
+
+
+/* --------------------------------------------------------Signup--------------------------------------------------- */
+.signup-container {
+    @apply flex items-center justify-center min-h-screen bg-blue-300 shadow-none shadow-black;
+  }
+  
+  .signup-form {
+    @apply bg-slate-50 p-6 rounded shadow-md w-full max-w-sm border-2 border-black;
+  }
+  
+  .signup-title {
+    @apply text-2xl font-bold text-center text-blue-600 mb-6;
+  }
+  
+  .signup-input {
+    @apply w-full px-3 py-2 mb-4 border border-blue-500 rounded;
+  }
+  
+  .signup-button {
+    @apply w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mb-4;
+  }
+  
+  .signup-link {
+    @apply text-center text-blue-600 hover:underline;
+  }
+
+  .error-box{
+    @apply text-red-500 font-sans font-semibold text-sm capitalize mb-3;
+  }
+  
+  /* ---------------------------------------------------------NavBar------------------------------------------------------- */
+.navbar {
+    @apply bg-blue-600 p-2;
+  }
+  
+  .navbar-container {
+    @apply container mx-auto flex justify-between items-center;
+  }
+  
+  .navbar-brand {
+    @apply text-white text-lg font-bold flex;
+  }
+  
+  .navbar-links {
+    @apply flex space-x-4;
+  }
+  
+  .navbar-link {
+    @apply text-white hover:text-gray-200;
+  }
+
+/* --------------------------------------------Dashboard------------------------------------------------- */
+
+.card {
+    @apply bg-red-400 shadow-lg rounded-lg p-6 mb-6 transition transform duration-200 ease-in-out;
+  }
+  
+  .card:hover {
+    @apply scale-105;
+  }
+  .card-title {
+      @apply text-lg font-semibold text-blue-500;
+  }
+  
+  .card-body {
+      @apply mt-4 text-gray-700;
+  }
+  
+  .sidebar {
+      @apply bg-slate-200 text-black  w-full min-h-screen p-6 text-sm border-r-2 border-gray-300;
+  }
+  
+  .sidebar-link {
+      @apply flex justify-start gap-2 items-center w-full py-1 px-2 text-black hover:bg-slate-300 rounded-md ;
+  }
+  
+
+  /* ---------------------------------------------------------Footer------------------------------------------------------- */
+  .footer {
+    @apply bg-gray-100 text-gray-800 p-8;
+}
+
+.footer-container {
+    @apply container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8;
+}
+
+.footer-column {
+    @apply flex flex-col space-y-4;
+}
+
+.footer-title {
+    @apply text-lg font-bold text-blue-600;
+}
+
+.footer-link {
+    @apply text-blue-600 hover:text-teal-500;
+}
