@@ -10,10 +10,12 @@ export const UserProvider = ({ children }) => {
   const [currentFolderId, setCurrentFolderId] = useState('')
   const [selectedItems, setSelectedItems] = useState({})
   const [selectedItemsLength, setSelectedItemsLength] = useState(0)
-  const [selectedForTransfer,setSelectedForTransfer]=useState(false)
+  const [selectedForTransfer, setSelectedForTransfer] = useState(false)
+  const [contextRootId, setContextRootId] = useState('')
+  const [isLoggedIn,setIsLoggedIn]=useState(false)
 
   return (
-    <UserContext.Provider value={{ name, setName,path,setPath,currentFolderId,setCurrentFolderId,selectedItems,setSelectedItems,selectedItemsLength,setSelectedItemsLength,selectedForTransfer,setSelectedForTransfer }}>
+    <UserContext.Provider value={{ name, setName,path,setPath,currentFolderId,setCurrentFolderId,selectedItems,setSelectedItems,selectedItemsLength,setSelectedItemsLength,selectedForTransfer,setSelectedForTransfer,contextRootId,setContextRootId,isLoggedIn,setIsLoggedIn }}>
       {children}
     </UserContext.Provider>
   );

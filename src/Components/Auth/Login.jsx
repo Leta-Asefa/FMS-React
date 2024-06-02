@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import '../../output.css';
+import { UserContext } from '../Context/UserContext';
 
 const Login = () => {
     const [formData, setFormData] = useState({
-        email: '',
+        username: '',
         password: ''
     });
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
+    const { setContextRootId, setIsLoggedIn } = useContext(UserContext)
+    const navigate = useNavigate()
 
 
     const handleChange = (e) => {
@@ -20,7 +23,34 @@ const Login = () => {
         e.preventDefault();
         console.log('handle submit called')
 
-       
+        fetch('http://localhost:4000/auth/login', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+            credentials: "include"
+        })
+            .then(response => {
+                console.log(response)
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .then(data => {
+                if (typeof data.error !== 'undefined') {
+                    setError(data)
+                }
+                else {
+                    setContextRootId(data.rootId)
+                 //   setIsLoggedIn(true)     // use this context (isLoggedin) to navigate towards home from the sidebar still there are some issues that need to be solved in the future
+                    navigate('/home/' + data.rootId)
+                }
+
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
 
 
 
@@ -28,22 +58,21 @@ const Login = () => {
 
     return (
         <div className="signup-container bg-cover bg-center bg-no-repeat relative " style={{ backgroundImage: `url('/bg-login.jpg')` }}>
-             <div className="absolute inset-0 bg-black opacity-50"></div>
-      
+            <div className="absolute inset-0 bg-black opacity-50"></div>
+
             <form className="signup-form z-50" onSubmit={handleSubmit}>
-            <h2 className="signup-title"> <b className='text-3xl'>A</b>mon<b className='text-3xl'>D</b>MS</h2>
+                <h2 className="signup-title"> <b className='text-3xl'>A</b>mon<b className='text-3xl'>D</b>MS</h2>
                 <h2 className="signup-title">Login</h2>
-               
+
                 <input
-                    type="email"
-                    name="email"
+                    type="text"
+                    name="username"
                     className="signup-input"
-                    placeholder="Email"
-                    value={formData.email}
+                    placeholder="username"
+                    value={formData.username}
                     onChange={handleChange}
                     required
                 />
-                <div className='error-box'>{error && error.error.email}</div>
                 <input
                     type="password"
                     name="password"
@@ -53,15 +82,16 @@ const Login = () => {
                     onChange={handleChange}
                     required
                 />
-                <div className='error-box'>{error && error.error.password}</div>
                 <button
                     type="submit"
                     className="signup-button"
                 >
                     Login
                 </button>
+                <div className='error-box'>{error && error.error}</div>
+
                 <div className="text-center">
-                     <NavLink to="/signup" className="signup-link">
+                    <NavLink to="/signup" className="signup-link">
                         Create an account ? Signup Here
                     </NavLink>
                 </div>

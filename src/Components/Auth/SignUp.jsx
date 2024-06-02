@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../output.css';
+import { UserContext } from '../Context/UserContext';
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ const Signup = () => {
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
     const [isOrg, setIsOrg] = useState(false)
+    const navigate = useNavigate()
+    const {setContextRootId}=useContext(UserContext)
 
 
     const handleChange = (e) => {
@@ -42,6 +45,9 @@ const Signup = () => {
                 if (typeof data.error !== 'undefined')
                     setError(data.error)
                 console.log(data)
+                setContextRootId(data.root._id)
+                navigate('/home/'+data.root._id)
+
 
             })
             .catch(error => {
@@ -137,7 +143,7 @@ const Signup = () => {
                 </div>
             </form>
 
-            {data && <div>Welcom {data}</div>}
+            
         </div>
     );
 };

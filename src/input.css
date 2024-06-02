@@ -2,11 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.bar-invisible::-webkit-scrollbar {
+  display: none;
+}
+.bar-invisible {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
 
 .active-link-bg{
   @apply bg-slate-300;
 }
-/* --------------------------------------------------------Change Password--------------------------------------------------- */
+/* --------------------------------------------------Change Password--------------------------------------------------- */
 .change-password-container{
   @apply bg-slate-300 mx-auto w-96 mt-3 rounded-lg p-3;
  
