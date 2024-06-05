@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from './Context/UserContext';
 
-const AddUsers = ({ onSelect }) => {
+const AddUsers = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const { contextRootId } = useContext(UserContext)
 
-  
+
   useEffect(() => {
     // Your fetch logic here to get the list of users
     const fetchData = async () => {
@@ -41,29 +43,60 @@ const AddUsers = ({ onSelect }) => {
   };
 
   // Function to handle add users button click
-  const handleAddUsers = () => {
-    // Pass selected users to parent component
-    onSelect(selectedUsers);
+  const handleAddUsers = async () => {
+
+    console.log(selectedUsers)
+    try {
+
+      const response = await fetch('http://localhost:4000/folders/permission/' + contextRootId, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Add Content-Type header
+        },
+        body: JSON.stringify({ selectedUsers: selectedUsers }),
+        credentials: 'include'
+      });
+
+
+      if (!response.ok) {
+        console.log("ERROR")
+        throw new Error('Failed to upload files');
+      }
+
+      console.log('Users are added successfully');
+    } catch (error) {
+      console.error('Error adding users:', error);
+    }
+
+
+
+
   };
 
   return (
-    <div className='mx-auto w-80 p-5 bg-slate-300 rounded-md mt-10' >
+    <div className=' w-full h-screen p-5 bg-slate-300' >
       <input
         type="text"
         placeholder="Search by username"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className='w-full rounded-lg px-3 py-1 mb-5'
-          />
-      <ul>
-        {filteredUsers.map(user => (
-          <li key={user.id} className='p-2 hover:bg-slate-400 rounded-md'>
+      />
+      <ul className='grid grid-cols-4 gap-x-10'>
+        {filteredUsers.map((user, index) => (
+          <li key={index} className='p-2 hover:bg-slate-400 rounded-md flex gap-5'>
             <input
               type="checkbox"
+              className='w-8'
               checked={selectedUsers.includes(user)}
               onChange={() => handleCheckboxChange(user)}
             />
-            {user.username}
+            <div>
+              {user.username}
+              <div className='text-xs font-bold'> || {user.firstName} {user.lastName}</div>
+            </div>
+            
+            
           </li>
         ))}
       </ul>

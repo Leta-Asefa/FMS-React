@@ -14,7 +14,7 @@ const Home = () => {
     const [files, setFiles] = useState([])
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { setPath, setCurrentFolderId, selectedItems, setSelectedItems, setSelectedItemsLength, selectedItemsLength, selectedForTransfer, contextRootId, isLoggedIn, setIsLoggedIn } = useContext(UserContext)
+    const { setPath, setCurrentFolderId, selectedItems, setSelectedItems, setSelectedItemsLength, selectedItemsLength, selectedForTransfer, contextRootId, setContextRootId, isLoggedIn, setIsLoggedIn } = useContext(UserContext)
     const { id } = useParams()
     const [rootId, setRootId] = useState('')
     const navigate = useNavigate()
@@ -48,16 +48,21 @@ const Home = () => {
 
 
     useEffect(() => {
-
-
         setSelectedItemsLength(() => Object.keys(selectedItems).length - 1)
         console.log("Length = " + selectedItemsLength, selectedItems)
 
     }, [selectedItems])
 
+    useEffect(() => {
+        localStorage.setItem('contextRootId', contextRootId)
+    }, [contextRootId])
+
 
 
     useEffect(() => {
+        setContextRootId(localStorage.getItem('contextRootId'))
+        console.log("Read from Local Storage", localStorage.getItem('contextRootId'))
+        console.log(contextRootId)
         const fetchSites = async () => {
             const constructedUrl = id ? `${baseUrl}${id}` : baseUrl + contextRootId
 
@@ -84,26 +89,31 @@ const Home = () => {
                 const files = data.files.map((file) => ({ fileId: file._id, fileName: file.name }))
 
 
-                folders.sort((a, b) => {
-                    if (a.folderName.toLowerCase() < b.folderName.toLowerCase()) {
-                        return -1;
-                    }
-                    if (a.folderName.toLowerCase() > b.folderName.toLowerCase()) {
-                        return 1;
-                    }
-                    return 0;
-                });
+                if (folders) {
+                    folders.sort((a, b) => {
+                        if (a.folderName.toLowerCase() < b.folderName.toLowerCase()) {
+                            return -1;
+                        }
+                        if (a.folderName.toLowerCase() > b.folderName.toLowerCase()) {
+                            return 1;
+                        }
+                        return 0;
+                    });
 
-                files.sort((a, b) => {
-                    if (a.fileName.toLowerCase() < b.fileName.toLowerCase()) {
-                        return -1;
-                    }
-                    if (a.fileName.toLowerCase() > b.fileName.toLowerCase()) {
-                        return 1;
-                    }
-                    return 0;
-                });
 
+                }
+
+                if (files) {
+                    files.sort((a, b) => {
+                        if (a.fileName.toLowerCase() < b.fileName.toLowerCase()) {
+                            return -1;
+                        }
+                        if (a.fileName.toLowerCase() > b.fileName.toLowerCase()) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                }
 
                 setFiles(files)
                 setFolders(folders);
@@ -122,10 +132,10 @@ const Home = () => {
             }
         };
 
-      
-            fetchSites();
-       
-       
+
+        fetchSites();
+
+
 
     }, [id]);
 

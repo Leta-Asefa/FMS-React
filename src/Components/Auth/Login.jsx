@@ -11,8 +11,9 @@ const Login = () => {
     });
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
-    const { setContextRootId, setIsLoggedIn } = useContext(UserContext)
+    const { setContextRootId, setIsLoggedIn, contextRootId } = useContext(UserContext)
     const navigate = useNavigate()
+
 
 
     const handleChange = (e) => {
@@ -38,13 +39,27 @@ const Login = () => {
                 }
             })
             .then(data => {
+                console.log(data)
+
+
                 if (typeof data.error !== 'undefined') {
                     setError(data)
                 }
                 else {
-                    setContextRootId(data.rootId)
-                 //   setIsLoggedIn(true)     // use this context (isLoggedin) to navigate towards home from the sidebar still there are some issues that need to be solved in the future
-                    navigate('/home/' + data.rootId)
+
+                    if (typeof data.rootId !== 'undefined') {
+                        setContextRootId(data.rootId)
+                        navigate('/home/' + data.rootId)
+                    }
+                    else {
+                        if (data.usersFolder) {
+                            localStorage.setItem('orglist', JSON.stringify( data.usersFolder))
+                            navigate('/orglist',{state:{users:data.usersFolder}})
+                        }
+                        else
+                            navigate('/waitingpage')
+
+                    }
                 }
 
             })

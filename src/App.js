@@ -9,6 +9,8 @@ import ChangePassword from './Components/ChangePassword';
 import AuthLayout from './Components/Layouts/AuthLayout';
 import MainLayout from './Components/Layouts/MainLayout';
 import Logout from './Components/Auth/Logout';
+import WaitingPage from './Components/Partials/WaitingPage';
+import OrgList from './Components/OrgList';
 
 function App() {
 
@@ -23,6 +25,8 @@ function App() {
           <Route path="/adduser" element={<AddUsers />} />
           <Route path="/alloweduser" element={<UsersControl />} />
           <Route path="/changepassword" element={<ChangePassword />} />
+          <Route path="/waitingpage" element={<WaitingPage />} />
+          <Route path='/orglist' element={<OrgList/>}/>
         </Route>
 
         {/* Routes that use AuthLayout */}

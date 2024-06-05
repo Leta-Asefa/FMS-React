@@ -131,6 +131,9 @@ const MenuBar = () => {
 
             const response = await fetch('http://localhost:4000/folders/upload/' + currentFolderId, {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // Add Content-Type header
+                  },
                 body: formData,
                 credentials: 'include'
             });

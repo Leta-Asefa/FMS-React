@@ -16,7 +16,7 @@ const Signup = () => {
     const [error, setError] = useState(null)
     const [isOrg, setIsOrg] = useState(false)
     const navigate = useNavigate()
-    const {setContextRootId}=useContext(UserContext)
+    const { setContextRootId } = useContext(UserContext)
 
 
     const handleChange = (e) => {
@@ -29,10 +29,13 @@ const Signup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+
+
         fetch('http://localhost:4000/auth/signup', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formData),
+            credentials:'include'
         })
             .then(response => {
                 if (response.ok) {
@@ -44,11 +47,14 @@ const Signup = () => {
             .then(data => {
                 if (typeof data.error !== 'undefined')
                     setError(data.error)
-                console.log(data)
-                setContextRootId(data.root._id)
-                navigate('/home/'+data.root._id)
-
-
+                else {
+                    if (formData.organizationName) {
+                        setContextRootId(data.root._id)
+                        navigate('/home/' + data.root._id)
+                    }
+                    else
+                        navigate('/waitingpage')
+                }
             })
             .catch(error => {
                 console.error('Fetch error:', error);
@@ -62,7 +68,7 @@ const Signup = () => {
     return (
         <div className="signup-container bg-cover  bg-center bg-no-repeat relative " style={{ backgroundImage: `url('/bg-login.svg')` }}>
             <div className="absolute inset-0 bg-black opacity-30"></div>
-           
+
             <form className="signup-form z-50 my-5" onSubmit={handleSubmit}>
                 <h2 className="signup-title"> <b className='text-2xl'>A</b>mon<b className='text-2xl'>D</b>MS</h2>
 
@@ -143,7 +149,7 @@ const Signup = () => {
                 </div>
             </form>
 
-            
+
         </div>
     );
 };
