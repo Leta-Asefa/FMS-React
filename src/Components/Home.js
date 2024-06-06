@@ -53,10 +53,7 @@ const Home = () => {
 
     }, [selectedItems])
 
-    useEffect(() => {
-        localStorage.setItem('contextRootId', contextRootId)
-    }, [contextRootId])
-
+   
 
 
     useEffect(() => {
@@ -164,7 +161,7 @@ const Home = () => {
                             type='checkbox'
                             className='absolute top-3 left-3'
                             checked={!!selectedItems[file.fileId]?.selected}
-                            onChange={() => handleCheckboxChange(file.fileId, true)}
+                            onChange={() => handleCheckboxChange(file.fileId, true, id ? id : rootId)}
                         />
 
                         <File name={file.fileName} isSelected={!!selectedItems[file.fileId]?.selected} />

@@ -21,6 +21,10 @@ const Logout = () => {
         setSelectedForTransfer(false)
         setContextRootId('')
         setIsLoggedIn(false)
+        localStorage.setItem('contextRootId', '')
+        localStorage.setItem('orglist', '')
+        localStorage.setItem('role', '')
+        localStorage.setItem('organizationName', '')
         navigate('/login') 
     },[])
 

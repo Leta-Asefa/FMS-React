@@ -8,12 +8,28 @@ import RenameFolder from '../PopUps/RenameFolder';
 
 const MenuBar = () => {
     const [openedPopup, setOpendPopup] = useState(null);
-    const { currentFolderId, setSelectedItems, selectedItems, selectedItemsLength, setSelectedForTransfer } = useContext(UserContext)
+    const { currentFolderId, setSelectedItems, selectedItems, selectedItemsLength, contextRootId, setSelectedForTransfer } = useContext(UserContext)
     const [copyText, setCopyText] = useState('')
     const [moveText, setMoveText] = useState('')
-    const [isForMove, setIsForMove] = useState(false)
+    const [isForMove, setIsForMove] = useState(true)
     const style = 'relative rounded hover:border-black border-2'
     const image = 'w-8 p-1 '
+    const [role, setRole] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        // Retrieve role from localStorage
+        const localStrageRole = localStorage.getItem('role');
+        setRole(localStrageRole);
+
+        // Check if the user is admin based on organizationName
+        const organizationName = localStorage.getItem('organizationName');
+        setIsAdmin(!organizationName); // Set isAdmin to true if organizationName is falsy
+
+        // Log role and isAdmin for debugging
+        console.log('Role:', localStrageRole);
+        console.log('IsAdmin:', isAdmin);
+    }, [contextRootId]); // Empty dependency array ensures this effect runs only once on mount
 
 
     useEffect(() => {
@@ -40,6 +56,7 @@ const MenuBar = () => {
         if (openedPopup !== 'copy') {  //use to display copyText
             setOpendPopup("copy")
             setSelectedForTransfer(true)
+            setIsForMove(false)
         }
         else {
             handleClosePopup()
@@ -70,7 +87,8 @@ const MenuBar = () => {
             parentId: selectedItems.parentId
         }
         const url = isForMove ? 'http://localhost:4000/folders/move' : 'http://localhost:4000/folders/copy'
-
+        console.log("URL ", url)
+        console.log("Data ",data)
         try {
             const response = await fetch(url, {
                 method: "POST",
@@ -86,7 +104,6 @@ const MenuBar = () => {
         }
 
         window.location.reload()
-
 
         handleClosePopup()
     }
@@ -113,6 +130,7 @@ const MenuBar = () => {
 
             console.log('Folder Created:', folderName);
             handleClosePopup();// Close the popup after creating the folder
+            localStorage.setItem('contextRootId', contextRootId)
             window.location.reload()
         } catch (err) {
             console.log(Error, err)
@@ -131,9 +149,6 @@ const MenuBar = () => {
 
             const response = await fetch('http://localhost:4000/folders/upload/' + currentFolderId, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json', // Add Content-Type header
-                  },
                 body: formData,
                 credentials: 'include'
             });
@@ -158,10 +173,10 @@ const MenuBar = () => {
 
         if (selectedItems) {
 
-            console.log('selected Items = ',selectedItems)
+            console.log('selected Items = ', selectedItems)
 
             for (const [key, value] of Object.entries(selectedItems)) {
-                if (key === 'parentId') 
+                if (key === 'parentId')
                     continue
                 if (value.selected) {
                     data.push({ id: key, isFile: value.isFile });
@@ -238,14 +253,34 @@ const MenuBar = () => {
 
     return (
         <div className=" p-1 border-b rounde  border-gray-300 flex justify-center gap-5 text-sm ">
-            <button onClick={handleCreatePopup} className={style} title='create folder'><img src='/create-folder.svg' className={image} /></button>
-            <button onClick={handleUploadPopup} className={style} title='upload here'><img src='/upload.svg' className={image} /></button>
-            <button onClick={handleCopyPopup} className={style} title='copy'><img src='/copy.svg' className={image} /> <p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'copy' ? "visible" : "hidden"}`}>{copyText}</p></button>
-            <button onClick={handleMovePopup} className={style} title='move'><img src='/move.svg' className={image} /><p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'move' ? "visible" : "hidden"}`}>{moveText}</p></button>
-            <button onClick={handlePastePopup} className={style} title='paste'><img src='/paste.svg' className={image} /></button>
-            <button onClick={handleRenamePopup} className={style} title='rename'><img src='/rename.svg' className={image} /></button>
-            <button onClick={handleDeletePopup} className={style} title='delete'><img src='/delete.svg' className={image} /></button>
-            <button className={style} title='share'><img src='/share.svg' className={image} /></button>
+            {role === "read" && <div>You can only read files</div>}
+           
+            {(role === "write" || role === "readWrite") &&
+                <div>
+                    <button onClick={handleCreatePopup} className={style} title='create folder'><img src='/create-folder.svg' className={image} /></button>
+                    <button onClick={handleUploadPopup} className={style} title='upload here'><img src='/upload.svg' className={image} /></button>
+                    <button onClick={handleCopyPopup} className={style} title='copy'><img src='/copy.svg' className={image} /> <p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'copy' ? "visible" : "hidden"}`}>{copyText}</p></button>
+                    <button onClick={handleMovePopup} className={style} title='move'><img src='/move.svg' className={image} /><p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'move' ? "visible" : "hidden"}`}>{moveText}</p></button>
+                    <button onClick={handlePastePopup} className={style} title='paste'><img src='/paste.svg' className={image} /></button>
+                    <button onClick={handleRenamePopup} className={style} title='rename'><img src='/rename.svg' className={image} /></button>
+                    <button className={style} title='share'><img src='/share.svg' className={image} /></button>
+
+                </div>
+            }
+
+            {!isAdmin && <div>
+                <button onClick={handleCreatePopup} className={style} title='create folder'><img src='/create-folder.svg' className={image} /></button>
+                <button onClick={handleUploadPopup} className={style} title='upload here'><img src='/upload.svg' className={image} /></button>
+                <button onClick={handleCopyPopup} className={style} title='copy'><img src='/copy.svg' className={image} /> <p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'copy' ? "visible" : "hidden"}`}>{copyText}</p></button>
+                <button onClick={handleMovePopup} className={style} title='move'><img src='/move.svg' className={image} /><p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'move' ? "visible" : "hidden"}`}>{moveText}</p></button>
+                <button onClick={handlePastePopup} className={style} title='paste'><img src='/paste.svg' className={image} /></button>
+                <button onClick={handleRenamePopup} className={style} title='rename'><img src='/rename.svg' className={image} /></button>
+                <button className={style} title='share'><img src='/share.svg' className={image} /></button>
+                <button onClick={handleDeletePopup} className={style} title='delete'><img src='/delete.svg' className={image} /></button>
+
+
+
+            </div>}
 
             {openedPopup === 'create' && <CreateNewFolder isOpen={true} onClose={handleClosePopup} onCreate={handleCreateFolder} />}
             {openedPopup === 'upload' && <UploadFiles isOpen={true} onClose={handleClosePopup} onUpload={handleFileUpload} />}

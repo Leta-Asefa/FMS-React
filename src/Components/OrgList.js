@@ -19,22 +19,23 @@ const OrgList = () => {
         setUsers(usersFolder)
   },[]);
 
-    const handleOrgLink = (rootId) => {
+    const handleOrgLink = (rootId,role) => {
         setContextRootId(rootId);
         localStorage.setItem('contextRootId', rootId);
+        localStorage.setItem('role',role)
         navigate(`/home/${rootId}`);
    }
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">You have registered for this companies</h1>
+            <h1 className="text-2xl font-bold mb-4">You have been included under this companies</h1>
             <ul className="pl-5">
                 {users.map((user, index) => (
-                    <button onClick={()=>handleOrgLink(user.rootId)} className='block w-full hover:bg-slate-300 rounded-2xl'>
-                        <li key={index} className="mb-2  px-5 py-2 flex gap-10">
+                    <button key={index} onClick={()=>handleOrgLink(user.rootId,user.role)} className='block w-full hover:bg-slate-300 rounded-2xl'>
+                        <li  className="mb-2  px-5 py-2 flex gap-10">
                             <img  src='/organization.svg' className='w-10 h-10'/>
                             <div className='text-left'>
-                            <div className="font-semibold ">Organization : {user.organizationName}</div> 
-                            <div className="font-semibold text-lg">Username : {user.username}</div> 
+                            <div className="font-semibold "> {user.organizationName}</div> 
+                            <div className="font-semibold text-sm">|| {user.username}</div> 
                             </div>
                         </li>
                         </button>

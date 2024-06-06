@@ -49,11 +49,14 @@ const Login = () => {
 
                     if (typeof data.rootId !== 'undefined') {
                         setContextRootId(data.rootId)
+                        localStorage.setItem('contextRootId', data.rootId)
+                        localStorage.setItem('organizationName', data.organizationName)
                         navigate('/home/' + data.rootId)
                     }
                     else {
                         if (data.usersFolder) {
-                            localStorage.setItem('orglist', JSON.stringify( data.usersFolder))
+                            localStorage.setItem('orglist', JSON.stringify(data.usersFolder))
+                            localStorage.setItem('organizationName',data.organizationName)
                             navigate('/orglist',{state:{users:data.usersFolder}})
                         }
                         else

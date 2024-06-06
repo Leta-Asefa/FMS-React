@@ -50,10 +50,17 @@ const Signup = () => {
                 else {
                     if (formData.organizationName) {
                         setContextRootId(data.root._id)
+                        localStorage.setItem('contextRootId', data.root._id)
+                        localStorage.setItem('organizationName', formData.organizationName)
                         navigate('/home/' + data.root._id)
                     }
                     else
+                    {
+                        setContextRootId('')
+                        localStorage.setItem('contextRootId','')
                         navigate('/waitingpage')
+                     }
+                    
                 }
             })
             .catch(error => {
