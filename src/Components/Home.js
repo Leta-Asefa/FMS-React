@@ -8,6 +8,7 @@ import { UserContext } from './Context/UserContext';
 import { Link } from 'react-router-dom';
 import MenuBar from './Partials/MenuBar';
 import PathBar from './Partials/PathBar';
+import FileViewerModal from './PopUps/FileViewerModal';
 
 const Home = () => {
     const [folders, setFolders] = useState([]);
@@ -19,7 +20,10 @@ const Home = () => {
     const [rootId, setRootId] = useState('')
     const navigate = useNavigate()
     const baseUrl = 'http://localhost:4000/folders/all_populated/'
-
+    const [fileData, setFileData] = useState(null);
+    const [fileType, setFileType] = useState('');
+    const [fileName, setFileName] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleCheckboxChange = (id, isFile, parentId) => {
 
@@ -53,7 +57,7 @@ const Home = () => {
 
     }, [selectedItems])
 
-   
+
 
 
     useEffect(() => {
@@ -136,6 +140,33 @@ const Home = () => {
 
     }, [id]);
 
+
+    const handleFileDoubleClick = (fileId) => {
+        fetchFile(fileId);
+    };
+
+    const fetchFile = async (fileId) => {
+        try {
+            const response = await fetch('http://localhost:4000/folders/openfile/' + fileId, {
+                method: 'GET',
+                credentials: 'include',
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const formattedData = await response.json();
+
+
+            const { url, type, name } = formattedData;
+            setFileData(url);
+            setFileType(type);
+            setFileName(name);
+            setIsModalOpen(true);
+        } catch (error) {
+            console.error('Error fetching file:', error);
+        }
+    };
+
     return (
         <div className=" ">
             <div className='w-full'><MenuBar /></div>
@@ -155,7 +186,7 @@ const Home = () => {
                     </div>
                 ))}
                 {files.map((file, index) => (
-                    <div key={file.fileId} className="w-1/5 p-2 relative">
+                    <div key={file.fileId} className="w-1/5 p-2 relative" onDoubleClick={() => handleFileDoubleClick(file.fileId)}>
 
                         <input
                             type='checkbox'
@@ -164,10 +195,19 @@ const Home = () => {
                             onChange={() => handleCheckboxChange(file.fileId, true, id ? id : rootId)}
                         />
 
-                        <File name={file.fileName} isSelected={!!selectedItems[file.fileId]?.selected} />
-
+                        <File onDoubleClick={() => handleFileDoubleClick(file.fileId)} name={file.fileName} isSelected={!!selectedItems[file.fileId]?.selected} />
+                       
                     </div>
                 ))}
+
+
+                <FileViewerModal
+                    isOpen={isModalOpen}
+                    onRequestClose={() => setIsModalOpen(false)}
+                    fileUrl={fileData}
+                    fileType={fileType}
+                    fileName={fileName}
+                />
 
             </div>
         </div>

@@ -5,6 +5,7 @@ import { UserContext } from '../Context/UserContext';
 import UploadFiles from '../PopUps/UploadFiles';
 import DeleteConfirmation from '../PopUps/DeleteConfirmation';
 import RenameFolder from '../PopUps/RenameFolder';
+import FileSearch from './FileSearch';
 
 const MenuBar = () => {
     const [openedPopup, setOpendPopup] = useState(null);
@@ -252,11 +253,11 @@ const MenuBar = () => {
 
 
     return (
-        <div className=" p-1 border-b rounde  border-gray-300 flex justify-center gap-5 text-sm ">
-            {role === "read" && <div>You can only read files</div>}
+        <div className=" p-1 border-b rounded  border-gray-300 flex justify-center gap-5 text-sm ">
+            {role === "read" && <div>You can only read files  <FileSearch /></div>}
            
             {(role === "write" || role === "readWrite") &&
-                <div>
+                <div className='flex justify-center gap-5 text-sm items-center'>
                     <button onClick={handleCreatePopup} className={style} title='create folder'><img src='/create-folder.svg' className={image} /></button>
                     <button onClick={handleUploadPopup} className={style} title='upload here'><img src='/upload.svg' className={image} /></button>
                     <button onClick={handleCopyPopup} className={style} title='copy'><img src='/copy.svg' className={image} /> <p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'copy' ? "visible" : "hidden"}`}>{copyText}</p></button>
@@ -264,11 +265,11 @@ const MenuBar = () => {
                     <button onClick={handlePastePopup} className={style} title='paste'><img src='/paste.svg' className={image} /></button>
                     <button onClick={handleRenamePopup} className={style} title='rename'><img src='/rename.svg' className={image} /></button>
                     <button className={style} title='share'><img src='/share.svg' className={image} /></button>
-
+                    <FileSearch />
                 </div>
             }
 
-            {!isAdmin && <div>
+            {!isAdmin && <div className='flex justify-center gap-5 text-sm'>
                 <button onClick={handleCreatePopup} className={style} title='create folder'><img src='/create-folder.svg' className={image} /></button>
                 <button onClick={handleUploadPopup} className={style} title='upload here'><img src='/upload.svg' className={image} /></button>
                 <button onClick={handleCopyPopup} className={style} title='copy'><img src='/copy.svg' className={image} /> <p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'copy' ? "visible" : "hidden"}`}>{copyText}</p></button>
@@ -277,8 +278,8 @@ const MenuBar = () => {
                 <button onClick={handleRenamePopup} className={style} title='rename'><img src='/rename.svg' className={image} /></button>
                 <button className={style} title='share'><img src='/share.svg' className={image} /></button>
                 <button onClick={handleDeletePopup} className={style} title='delete'><img src='/delete.svg' className={image} /></button>
-
-
+              
+                <FileSearch />
 
             </div>}
 

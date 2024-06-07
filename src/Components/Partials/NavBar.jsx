@@ -8,8 +8,8 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="navbar-container">
                 <div className="navbar-brand">
-                    <Link to="/"><img src='/logo.svg' className='w-6'/></Link>
-                    <p> Drive</p>
+                    <Link to="/">  <p className='text-sm'> Gonder City Administration DMS</p></Link>
+                  
                 </div>
                 <ul className="navbar-links">
                     <li>

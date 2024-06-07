@@ -75,11 +75,11 @@ const Login = () => {
     };
 
     return (
-        <div className="signup-container bg-cover bg-center bg-no-repeat relative " style={{ backgroundImage: `url('/bg-login.jpg')` }}>
-            <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="signup-container bg-cover bg-center bg-no-repeat relative bg-white " style={{ backgroundImage: `url('/bg-login.jp')` }}>
+            <div className="absolute inset-0 bg-white"></div>
 
             <form className="signup-form z-50" onSubmit={handleSubmit}>
-                <h2 className="signup-title"> <b className='text-3xl'>A</b>mon<b className='text-3xl'>D</b>MS</h2>
+                <h2 className=" text-lg text-center text-blue-600"> Gonder City Adminstration Document Managment System</h2>
                 <h2 className="signup-title">Login</h2>
 
                 <input
