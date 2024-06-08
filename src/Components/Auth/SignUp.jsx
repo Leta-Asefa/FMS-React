@@ -52,6 +52,7 @@ const Signup = () => {
                         setContextRootId(data.root._id)
                         localStorage.setItem('contextRootId', data.root._id)
                         localStorage.setItem('organizationName', formData.organizationName)
+                        localStorage.setItem('orgUsername',data.username)
                         navigate('/home/' + data.root._id)
                     }
                     else

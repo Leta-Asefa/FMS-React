@@ -6,8 +6,10 @@ const AddUsers = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedUsers, setSelectedUsers] = useState([]);
   const { contextRootId } = useContext(UserContext)
+  const [popupVisible, setPopupVisible] = useState(false); // State to manage popup visibility
+  const {isEnglish}=useContext(UserContext)
 
-
+ 
   useEffect(() => {
     // Your fetch logic here to get the list of users
     const fetchData = async () => {
@@ -62,8 +64,13 @@ const AddUsers = () => {
         console.log("ERROR")
         throw new Error('Failed to upload files');
       }
-
-      console.log('Users are added successfully');
+      setPopupVisible(true); // Display the popup after successful removal
+      setTimeout(() => {
+        setPopupVisible(false); // Hide the popup after a certain duration
+      }, 2000);
+      
+      window.location.reload()
+  
     } catch (error) {
       console.error('Error adding users:', error);
     }
@@ -77,7 +84,7 @@ const AddUsers = () => {
     <div className=' w-full h-screen p-5 bg-slate-300' >
       <input
         type="text"
-        placeholder="Search by username"
+        placeholder={isEnglish ? "Search by username" : "የተጠቃሚውን ስም (@username) በማስገባት ይፈልጉ ..."}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className='w-full rounded-lg px-3 py-1 mb-5'
@@ -100,7 +107,15 @@ const AddUsers = () => {
           </li>
         ))}
       </ul>
-      <button className='bg-blue-500 text-white rounded-md px-3 py-1 w-full hover:bg-blue-600 mt-5' onClick={handleAddUsers}>Add Users</button>
+      <button className='bg-blue-500 text-white rounded-md px-3 py-1 w-full hover:bg-blue-600 mt-5' onClick={handleAddUsers}> {isEnglish ? "Add Users" : "ተጠቃሚዎችን ጨምር"}
+</button>
+
+      {popupVisible && (
+        <div className="fixed bottom-10 right-5 bg-green-400 text-white p-3 rounded-md">
+          {isEnglish ? " Users added successfully!" : "ተጠቃሚዎች በተሳካ መንገድ ተጨምረዋል !"}
+
+        </div>
+      )}
     </div>
   );
 };

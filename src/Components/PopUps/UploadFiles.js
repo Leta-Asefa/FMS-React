@@ -1,10 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import '../../output.css'; // Ensure your styles are correctly imported
+import { UserContext } from '../Context/UserContext';
 
 const UploadFiles = ({ isOpen, onClose, onUpload }) => {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const fileInputRef = useRef(null);
     const popupRef = useRef(null);
+    const {isEnglish}=useContext(UserContext)
+
+  
+    
+
 
     const handleClickOutside = (event) => {
         if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -39,7 +45,8 @@ const UploadFiles = ({ isOpen, onClose, onUpload }) => {
         <div className="popup-overlay z-50">
             <div ref={popupRef} className="popup-box relative">
                 <button className="close-button" onClick={onClose}>&times;</button>
-                <h2 className='text-2xl'>Upload Files</h2>
+                <h2 className='text-2xl'>  {isEnglish ? "Upload Files" : "ፋይሎችን ወደ ሰርቨር ላክ (ጫን)"}
+    </h2>
                 <br></br>
                 <input
                     type="file"
@@ -50,7 +57,8 @@ const UploadFiles = ({ isOpen, onClose, onUpload }) => {
                  
                 />
                 <br></br>
-                <button onClick={handleUpload} className='button'>Upload</button>
+                <button onClick={handleUpload} className='button'>  {isEnglish ? "Upload" : "ላክ (ጫን)"}
+    </button>
             </div>
         </div>
     );

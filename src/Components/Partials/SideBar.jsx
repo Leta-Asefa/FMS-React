@@ -8,7 +8,8 @@ const SideBar = () => {
     const location = useLocation();
     const { contextRootId, setContextRootId } = useContext(UserContext);
     const [isAdmin, setIsAdmin] = useState(false);
-
+    const { isEnglish } = useContext(UserContext)
+  
     useEffect(() => {
         setContextRootId(localStorage.getItem('contextRootId'));
         console.log("Read from Local Storage", localStorage.getItem('contextRootId'));
@@ -24,29 +25,29 @@ const SideBar = () => {
             <nav>
                 <NavLink to={`/home/${contextRootId}`} className={`sidebar-link ${location.pathname.includes('/home') ? 'active-link-bg' : ''}`}>
                     <img src='/home.svg' className={image} />
-                    <p>Home</p>
+                    <p>{isEnglish?"Home" :"ማህደር"}</p>
                 </NavLink>
                 {!isAdmin && (
                     <>
                         <NavLink to="/adduser" className={`sidebar-link ${location.pathname === '/adduser' ? 'active-link-bg' : ''}`}>
                             <img src='/adduser.svg' className={image} />
-                            <p>Add User</p>
+                            <p>{isEnglish?"Add User" :"ተጠቃሚ ጨምር"}</p>
                         </NavLink>
                         <NavLink to="/alloweduser" className={`sidebar-link ${location.pathname === '/alloweduser' ? 'active-link-bg' : ''}`}>
                             <img src='/allowed.svg' className={image} />
-                            <p>Allowed Users</p>
+                            <p>{isEnglish?"Allowed Users" :"የተፈቀደላቸው ተጠቃሚዎቸ"}</p>
                         </NavLink>
                     </>
                 )}
                 {isAdmin && (
                     <NavLink to="/orglist" className={`sidebar-link ${location.pathname === '/orglist' ? 'active-link-bg' : ''}`}>
                         <img src='/organization.svg' className={image} />
-                        <p>My Orgs</p>
+                        <p>{isEnglish?"MyOrgs" :"የምሰራባቸው ድርጅቶቸ"}</p>
                     </NavLink>
                 )}
                 <NavLink to="/changepassword" className={`sidebar-link ${location.pathname === '/changepassword' ? 'active-link-bg' : ''}`}>
                     <img src='/changepassword.svg' className={image} />
-                    <p>Change Password</p>
+                    <p>{isEnglish?"Change Password" :"የይለፍ ቃል ቀይር"}</p>
                 </NavLink>
             </nav>
         </aside>

@@ -51,6 +51,7 @@ const Login = () => {
                         setContextRootId(data.rootId)
                         localStorage.setItem('contextRootId', data.rootId)
                         localStorage.setItem('organizationName', data.organizationName)
+                        localStorage.setItem('orgUsername',data.username)
                         navigate('/home/' + data.rootId)
                     }
                     else {

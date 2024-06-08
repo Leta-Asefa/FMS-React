@@ -7,7 +7,11 @@ const UsersControl = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const { contextRootId,setContextRootId } = useContext(UserContext)
+  const [popupVisible, setPopupVisible] = useState(false); // State to manage popup visibility
+  const {isEnglish}=useContext(UserContext)
 
+  
+  
  
 
   useEffect(() => {
@@ -32,6 +36,31 @@ const UsersControl = () => {
     fetchUsers();
   }, []);
 
+  const removeAccess = async (username) => {
+    const data={folderId:contextRootId  ,username}
+    const response = await fetch('http://localhost:4000/folders/removeUserAccess', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+
+    setPopupVisible(true); // Display the popup after successful removal
+    setTimeout(() => {
+      setPopupVisible(false); // Hide the popup after a certain duration
+    }, 2000);
+    
+    window.location.reload()
+
+    return<div>done!</div>
+
+  }
  
   const handleAccessControlChange = async (userId,username, action) => {
 
@@ -84,7 +113,7 @@ const UsersControl = () => {
 
   return (
     <div className='bg-slate-300 w-full h-screen p-2 mt-0'>
-      <h2 className='mx-auto w-20 mb-5'>Users List</h2>
+      <h2 className='mx-auto w-64 mb-5'>{isEnglish ? "Users List" : "የተፈቀደላቸው ተጠቃሚዎቸ ስም ዝርዝር"}</h2>
       <input
         type="text"
         placeholder="Search by username"
@@ -102,13 +131,22 @@ const UsersControl = () => {
               value={user.accessControl}
               onChange={e => handleAccessControlChange(user._id,user.username, e.target.value)}
             >
-              <option value="read">Read</option>
-              <option value="write">Write</option>
-              <option value="readWrite">Read & Write</option>
+              <option value="read">{isEnglish ? "" : "መመልከት"}</option>
+              <option value="write">{isEnglish ? "Write" : "መጫን"}</option>
+              <option value="readWrite">{isEnglish ? "Read & Write" : "መመልከት/መጫን"}</option>
             </select>
+            <div className='relative'>
+            <button onClick={()=>removeAccess(user.username)} className='absolute top-0 -left-16 bg-slate-300 hover:bg-slate-200 rounded-lg p-2  text-red-600 text-sm hover:font-bold'>{isEnglish ? "Remove" : "ሰርዝ"}</button>
+
+            </div>
           </li>
         ))}
       </ul>
+      {popupVisible && (
+        <div className="fixed bottom-10 right-5 bg-green-400 text-white p-3 rounded-md">
+         {isEnglish ? " Access removed successfully!" : "ተሰርዟል !"}
+        </div>
+      )}
     </div>
   );
 };

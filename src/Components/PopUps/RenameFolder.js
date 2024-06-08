@@ -5,7 +5,10 @@ import { UserContext } from '../Context/UserContext';
 const RenameFolder = ({ isOpen, onClose, onRename }) => {
     const [folderName, setFolderName] = useState('');
     const popupRef = useRef(null);
+    const {isEnglish}=useContext(UserContext)
 
+   
+    
     const handleClickOutside = (event) => {
         if (popupRef.current && !popupRef.current.contains(event.target)) {
             onClose();
@@ -42,7 +45,8 @@ const RenameFolder = ({ isOpen, onClose, onRename }) => {
             <div ref={popupRef} className="popup-box relative">
                 <button className="close-button" onClick={onClose}>&times;</button>
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="folderName" className="block text-gray-700">Enter New Name</label>
+                    <label htmlFor="folderName" className="block text-gray-700"> {isEnglish ? "Enter New Name" : "አዲስ ስም አስገባ"}
+    </label>
                     <input
                         type="text"
                         id="folderName"
@@ -50,7 +54,8 @@ const RenameFolder = ({ isOpen, onClose, onRename }) => {
                         value={folderName}
                         onChange={(e) => setFolderName(e.target.value)}
                     />
-                    <button type="submit" className="button">Rename</button>
+                    <button type="submit" className="button"> {isEnglish ? "Rename" : "እንደገና ሰይም"}
+    </button>
                 </form>
             </div>
                 </div >

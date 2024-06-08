@@ -11,6 +11,17 @@
 }
 
 
+/* 
+
+ const {isEnglish}=useContext(UserContext)
+
+{isEnglish ? "" : ""}
+
+
+
+
+*/
+
 .active-link-bg{
   @apply bg-slate-300;
 }
@@ -97,15 +108,15 @@
   
   /* ---------------------------------------------------------NavBar------------------------------------------------------- */
 .navbar {
-    @apply bg-blue-600 p-2;
+    @apply bg-gray-800 pr-5;
   }
   
   .navbar-container {
-    @apply container mx-auto flex justify-between items-center;
+    @apply  mx-auto flex justify-between items-center;
   }
   
   .navbar-brand {
-    @apply text-white text-lg font-bold flex;
+    @apply text-white text-lg font-bold flex items-center gap-2 ;
   }
   
   .navbar-links {
@@ -144,7 +155,7 @@
 
   /* ---------------------------------------------------------Footer------------------------------------------------------- */
   .footer {
-    @apply bg-gray-100 text-gray-800 p-8;
+    @apply text-gray-100 bg-gray-800 p-8;
 }
 
 .footer-container {

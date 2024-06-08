@@ -17,6 +17,8 @@ const MenuBar = () => {
     const image = 'w-8 p-1 '
     const [role, setRole] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
+    const { isEnglish } = useContext(UserContext)
+  
 
     useEffect(() => {
         // Retrieve role from localStorage
@@ -147,7 +149,8 @@ const MenuBar = () => {
             files.forEach((file) => {
                 formData.append('files', file);
             });
-
+            formData.append('owner',localStorage.getItem('orgUsername'))
+            console.log(formData)
             const response = await fetch('http://localhost:4000/folders/upload/' + currentFolderId, {
                 method: 'POST',
                 body: formData,
@@ -254,30 +257,30 @@ const MenuBar = () => {
 
     return (
         <div className=" p-1 border-b rounded  border-gray-300 flex justify-center gap-5 text-sm ">
-            {role === "read" && <div>You can only read files  <FileSearch /></div>}
+            {role === "read" && <div>{isEnglish?`You can only read files `:`ፈይል መመልከት ብቻ ነው የምትችለው/የምትችዪው`} <FileSearch /></div>}
            
             {(role === "write" || role === "readWrite") &&
                 <div className='flex justify-center gap-5 text-sm items-center'>
-                    <button onClick={handleCreatePopup} className={style} title='create folder'><img src='/create-folder.svg' className={image} /></button>
-                    <button onClick={handleUploadPopup} className={style} title='upload here'><img src='/upload.svg' className={image} /></button>
-                    <button onClick={handleCopyPopup} className={style} title='copy'><img src='/copy.svg' className={image} /> <p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'copy' ? "visible" : "hidden"}`}>{copyText}</p></button>
-                    <button onClick={handleMovePopup} className={style} title='move'><img src='/move.svg' className={image} /><p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'move' ? "visible" : "hidden"}`}>{moveText}</p></button>
-                    <button onClick={handlePastePopup} className={style} title='paste'><img src='/paste.svg' className={image} /></button>
-                    <button onClick={handleRenamePopup} className={style} title='rename'><img src='/rename.svg' className={image} /></button>
+                    <button onClick={handleCreatePopup} className={style} title={isEnglish?`create folder`:`ዶሴ ፍጠር`}><img src='/create-folder.svg' className={image} /></button>
+                    <button onClick={handleUploadPopup} className={style} title={isEnglish?`upload here`:`ሰርቨር ላይ ጫን`}><img src='/upload.svg' className={image} /></button>
+                    <button onClick={handleCopyPopup} className={style} title={isEnglish?`copy`:`ኮፒ`}><img src='/copy.svg' className={image} /> <p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'copy' ? "visible" : "hidden"}`}>{copyText}</p></button>
+                    <button onClick={handleMovePopup} className={style} title={isEnglish?`move`:`አዘዋውር`}><img src='/move.svg' className={image} /><p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'move' ? "visible" : "hidden"}`}>{moveText}</p></button>
+                    <button onClick={handlePastePopup} className={style} title={isEnglish?`paste`:`ለጥፍ`}><img src='/paste.svg' className={image} /></button>
+                    <button onClick={handleRenamePopup} className={style} title={isEnglish?`rename`:`እንደገና ሰይም`}><img src='/rename.svg' className={image} /></button>
                     <button className={style} title='share'><img src='/share.svg' className={image} /></button>
                     <FileSearch />
                 </div>
             }
 
             {!isAdmin && <div className='flex justify-center gap-5 text-sm'>
-                <button onClick={handleCreatePopup} className={style} title='create folder'><img src='/create-folder.svg' className={image} /></button>
-                <button onClick={handleUploadPopup} className={style} title='upload here'><img src='/upload.svg' className={image} /></button>
-                <button onClick={handleCopyPopup} className={style} title='copy'><img src='/copy.svg' className={image} /> <p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'copy' ? "visible" : "hidden"}`}>{copyText}</p></button>
-                <button onClick={handleMovePopup} className={style} title='move'><img src='/move.svg' className={image} /><p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'move' ? "visible" : "hidden"}`}>{moveText}</p></button>
-                <button onClick={handlePastePopup} className={style} title='paste'><img src='/paste.svg' className={image} /></button>
-                <button onClick={handleRenamePopup} className={style} title='rename'><img src='/rename.svg' className={image} /></button>
+                <button onClick={handleCreatePopup} className={style} title={isEnglish?`create folder`:`ዶሴ ፍጠር`}><img src='/create-folder.svg' className={image} /></button>
+                <button onClick={handleUploadPopup} className={style} title={isEnglish?`upload here`:`ሰርቨር ላይ ጫን`}><img src='/upload.svg' className={image} /></button>
+                <button onClick={handleCopyPopup} className={style} title={isEnglish?`copy`:`ኮፒ`}><img src='/copy.svg' className={image} /> <p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'copy' ? "visible" : "hidden"}`}>{copyText}</p></button>
+                <button onClick={handleMovePopup} className={style} title={isEnglish?`move`:`አዘዋውር`}><img src='/move.svg' className={image} /><p className={`absolute left-0 top-6 text-xxs font-bold w-full bg-green-200 rounded-lg ${openedPopup === 'move' ? "visible" : "hidden"}`}>{moveText}</p></button>
+                <button onClick={handlePastePopup} className={style} title={isEnglish?`paste`:`ለጥፍ`}><img src='/paste.svg' className={image} /></button>
+                <button onClick={handleRenamePopup} className={style} title={isEnglish?`rename`:`እንደገና ሰይም`}><img src='/rename.svg' className={image} /></button>
                 <button className={style} title='share'><img src='/share.svg' className={image} /></button>
-                <button onClick={handleDeletePopup} className={style} title='delete'><img src='/delete.svg' className={image} /></button>
+                <button onClick={handleDeletePopup} className={style} title={isEnglish?`delete`:`አጥፋ`}><img src='/delete.svg' className={image} /></button>
               
                 <FileSearch />
 

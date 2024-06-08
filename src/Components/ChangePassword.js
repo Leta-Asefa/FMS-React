@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../input.css';
+import { UserContext } from './Context/UserContext';
 
 const ChangePassword = () => {
     const [username, setUsername] = useState('');
@@ -8,6 +9,11 @@ const ChangePassword = () => {
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
+    const [popupVisible, setPopupVisible] = useState(false); // State to manage popup visibility
+    const {isEnglish}=useContext(UserContext)
+
+   
+
 
     const handleChangePassword = async () => {
         if (newPassword !== confirmNewPassword) {
@@ -16,7 +22,7 @@ const ChangePassword = () => {
         }
 
         try {
-            const response = await fetch('http://example.com/change-password', {
+            const response = await fetch('http://localhost:4000/auth/change_password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -28,8 +34,9 @@ const ChangePassword = () => {
                 }),
             });
 
+            const data = await response.json();
             if (!response.ok) {
-                throw new Error('Failed to change password.');
+                throw new Error(data.err || 'Failed to change password.');
             }
 
             setSuccessMessage('Password changed successfully.');
@@ -37,6 +44,12 @@ const ChangePassword = () => {
             setOldPassword('');
             setNewPassword('');
             setConfirmNewPassword('');
+            setError(null)
+            setPopupVisible(true); // Display the popup after successful removal
+            setTimeout(() => {
+              setPopupVisible(false); // Hide the popup after a certain duration
+            }, 2000);
+
         } catch (error) {
             setError(error.message);
         }
@@ -44,11 +57,11 @@ const ChangePassword = () => {
 
     return (
         <div className='change-password-container'>
-            <h2 className='mx-auto w-40 mb-5 text-xl'>Change Password</h2>
-            {error && <div className="error">{error}</div>}
+            <h2 className='mx-auto w-40 mb-5 text-xl'> {isEnglish ? "Change Password" : "የይለፍ ቃል ቀይር"}</h2>
+           
             {successMessage && <div className="success">{successMessage}</div>}
             <div className='change-password-input-container'>
-                <label>Username:</label>
+                <label> {isEnglish ? "Username : " : "የተጠቃሚነት መለያ ስም"}</label>
                 <input
                     type="text"
                     value={username}
@@ -57,7 +70,7 @@ const ChangePassword = () => {
                 />
             </div>
             <div className='change-password-input-container'>
-                <label>Old Password:</label>
+                <label> {isEnglish ? "Old Password : " : "የድሮ ይለፍ ቃል"}</label>
                 <input
                     type="password"
                     value={oldPassword}
@@ -66,7 +79,7 @@ const ChangePassword = () => {
                 />
             </div>
             <div className='change-password-input-container'>
-                <label>New Password:</label>
+                <label>{isEnglish ? "New Password:" : "አዲስ ይለፍ ቃል"}</label>
                 <input
                     type="password"
                     value={newPassword}
@@ -75,7 +88,7 @@ const ChangePassword = () => {
                 />
             </div>
             <div className='change-password-input-container'>
-                <label>Confirm New Password:</label>
+                <label>{isEnglish ? "Confirm New Password:" : "አዲሱን ይለፍ ቃል ይድገሙ"}</label>
                 <input
                     type="password"
                     value={confirmNewPassword}
@@ -83,7 +96,14 @@ const ChangePassword = () => {
                     className='change-password-input'
                 />
             </div>
-            <button className='bg-green-500 text-white rounded-md px-3 py-1 w-full hover:bg-green-600 mt-5 font-bold' onClick={handleChangePassword}>Change</button>
+            <button className='bg-green-500 text-white rounded-md px-3 py-1 w-full hover:bg-green-600 mt-5 font-bold' onClick={handleChangePassword}>{isEnglish ? "Change" : "ቀይር"}</button>
+            {error && <div className="error">{error}</div>}
+
+            {popupVisible && (
+                <div className="fixed bottom-10 right-5 bg-green-400 text-white p-3 rounded-md">
+                    {isEnglish ? "Changed Successfully !" : "ተቀይሯል !"}
+                </div>
+            )}
         </div>
     );
 };
