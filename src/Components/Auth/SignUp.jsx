@@ -74,18 +74,24 @@ const Signup = () => {
     };
 
     return (
-        <div className="signup-container bg-cover  bg-center bg-no-repeat relative " style={{ backgroundImage: `url('/bg-login.svg')` }}>
-            <div className="absolute inset-0 bg-black opacity-30"></div>
+        <div className="signup-container h-full">
+           
+           <div className='w-full h-full relative'>
+            <div class="absolute inset-0 bg-black bg-opacity-30 flex justify-center items-center">  </div>
+                <img src='/fasiledes.jpg' className='w-full h-full '/>
+            </div>
 
-            <form className="signup-form z-50 my-5" onSubmit={handleSubmit}>
-                <h2 className="signup-title"> <b className='text-2xl'>A</b>mon<b className='text-2xl'>D</b>MS</h2>
+
+            <form className="signup-form  mx-auto" onSubmit={handleSubmit}>
+            <h2 className=" text-3xl text-center text-black font-extrabold mt-5"> Gonder City Adminstration Document Managment System</h2>
+                <h2 className="signup-title mt-16">Signup</h2>
 
                 <div className="mb-4 ">
-                    <label htmlFor="role" className="block text-gray-700 text-sm">Sign Up As </label>
+                    <label htmlFor="role" className="block text-black text-sm">Sign Up As </label>
                     <select
                         value={isOrg}
                         onChange={handleIsOrg}
-                        className="mt-1 block  bg-gray-200 border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        className="mt-1 block  bg-white border border-black rounded py-2 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     >
                         <option value={false}>User</option>
                         <option value={true}>Organization</option>

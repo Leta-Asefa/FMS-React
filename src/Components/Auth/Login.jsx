@@ -76,12 +76,17 @@ const Login = () => {
     };
 
     return (
-        <div className="signup-container bg-cover bg-center bg-no-repeat relative bg-white " style={{ backgroundImage: `url('/bg-login.jp')` }}>
-            <div className="absolute inset-0 bg-white"></div>
+        <div className="signup-container" >
 
-            <form className="signup-form z-50" onSubmit={handleSubmit}>
-                <h2 className=" text-lg text-center text-blue-600"> Gonder City Adminstration Document Managment System</h2>
-                <h2 className="signup-title">Login</h2>
+           
+            <div className='w-full h-full relative'>
+            <div class="absolute inset-0 bg-black bg-opacity-30 flex justify-center items-center">  </div>
+                <img src='/fasiledes.jpg' className='w-full h-full '/>
+            </div>
+
+            <form className="signup-form mx-auto" onSubmit={handleSubmit}>
+                <h2 className=" text-3xl text-center text-black font-extrabold mt-10"> Gonder City Adminstration Document Managment System</h2>
+                <h2 className="signup-title mt-24">Login</h2>
 
                 <input
                     type="text"

@@ -79,19 +79,19 @@
 
 /* --------------------------------------------------------Signup--------------------------------------------------- */
 .signup-container {
-    @apply flex items-center justify-center min-h-screen bg-blue-300 shadow-none shadow-black;
+    @apply grid grid-cols-2 min-h-screen bg-white shadow-none shadow-black;
   }
   
   .signup-form {
-    @apply bg-slate-50 p-6 rounded shadow-md w-full max-w-sm border-2 border-black;
+    @apply  p-6 rounded shadow-md w-full h-full;
   }
   
   .signup-title {
-    @apply text-2xl font-bold text-center text-blue-600 mb-6;
+    @apply text-2xl font-bold text-center text-black mb-6;
   }
   
   .signup-input {
-    @apply w-full px-3 py-2 mb-4 border border-blue-500 rounded;
+    @apply w-full px-3 py-2 mb-4 border border-black rounded;
   }
   
   .signup-button {
