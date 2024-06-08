@@ -29,9 +29,7 @@ const MenuBar = () => {
         const organizationName = localStorage.getItem('organizationName');
         setIsAdmin(!organizationName); // Set isAdmin to true if organizationName is falsy
 
-        // Log role and isAdmin for debugging
-        console.log('Role:', localStrageRole);
-        console.log('IsAdmin:', isAdmin);
+        
     }, [contextRootId]); // Empty dependency array ensures this effect runs only once on mount
 
 
@@ -198,7 +196,7 @@ const MenuBar = () => {
                 console.log(response)
 
                 handleClosePopup();
-                window.location.reload()
+               window.location.reload()
             } catch (err) {
                 console.log(Error, err)
             }

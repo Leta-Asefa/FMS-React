@@ -131,7 +131,7 @@ const UsersControl = () => {
               value={user.accessControl}
               onChange={e => handleAccessControlChange(user._id,user.username, e.target.value)}
             >
-              <option value="read">{isEnglish ? "" : "መመልከት"}</option>
+              <option value="read">{isEnglish ? "Read" : "መመልከት"}</option>
               <option value="write">{isEnglish ? "Write" : "መጫን"}</option>
               <option value="readWrite">{isEnglish ? "Read & Write" : "መመልከት/መጫን"}</option>
             </select>

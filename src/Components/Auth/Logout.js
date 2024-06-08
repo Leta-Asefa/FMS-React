@@ -25,6 +25,7 @@ const Logout = () => {
         localStorage.setItem('orglist', '')
         localStorage.setItem('role', '')
         localStorage.setItem('organizationName', '')
+        localStorage.setItem("orgUsername",'')
         navigate('/login') 
     },[])
 
