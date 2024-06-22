@@ -17,7 +17,7 @@ const Navbar = () => {
             <div className="navbar-container">
                 <div className="navbar-brand">
                   <div className='mr-0 bg-white'><img src='/logo.png' /></div>  
-                    <Link to="/">  <p className='text-sm pr-4'> {isEnglish?"Gonder City Administration DMS" :" የጎንደር ከተማ መስተዳደር መረጃ መቆጣጠሪያ ሲስተም"}</p></Link>
+                    <Link to="/">  <p className='text-2xl pr-4'> {isEnglish?"Gonder City Administration DMS" :" የጎንደር ከተማ አስተዳደር መረጃ መቆጣጠሪያ ሲስተም"}</p></Link>
                   
                 </div>
                 <ul className="navbar-links">

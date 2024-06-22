@@ -8,6 +8,7 @@ const SideBar = () => {
     const location = useLocation();
     const { contextRootId, setContextRootId } = useContext(UserContext);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [isSuperAdmin, setIsSuperAdmin] = useState(false);
     const { isEnglish } = useContext(UserContext)
   
     useEffect(() => {
@@ -17,7 +18,12 @@ const SideBar = () => {
         
         // Check if the user is an admin based on your criteria
         const organizationName = localStorage.getItem('organizationName');
-        setIsAdmin(!organizationName); // Set isAdmin to true if organizationName is falsy
+        if (organizationName === '@gonder'){
+            setIsSuperAdmin(true)
+            setIsAdmin(false)
+        }
+        else
+         setIsAdmin(!organizationName); // Set isAdmin to true if organizationName is falsy
     }, [setContextRootId, contextRootId]);
 
     return (
@@ -27,7 +33,24 @@ const SideBar = () => {
                     <img src='/home.svg' className={image} />
                     <p>{isEnglish?"Home" :"ማህደር"}</p>
                 </NavLink>
-                {!isAdmin && (
+           
+                {isSuperAdmin && (
+                    <>
+                    <NavLink to="/orglist" className={`sidebar-link ${location.pathname === '/orglist' ? 'active-link-bg' : ''}`}>
+                        <img src='/organization.svg' className={image} />
+                        <p>{isEnglish?"MyOrgs" :"የምሰራባቸው ድርጅቶቸ"}</p>
+                    </NavLink>
+                    <NavLink to="/notification" className={`sidebar-link ${location.pathname === '/notification' ? 'active-link-bg' : ''}`}>
+                            <img src='/notification.svg' className={image} />
+                            <p>{isEnglish?"Notifications" :"ኖቲፊኬሽንስ"}</p>
+                        </NavLink>
+                    </>
+                )}
+
+
+                {!isSuperAdmin && (
+                    <>
+                             {!isAdmin && (
                     <>
                         <NavLink to="/adduser" className={`sidebar-link ${location.pathname === '/adduser' ? 'active-link-bg' : ''}`}>
                             <img src='/adduser.svg' className={image} />
@@ -37,6 +60,10 @@ const SideBar = () => {
                             <img src='/allowed.svg' className={image} />
                             <p>{isEnglish?"Allowed Users" :"የተፈቀደላቸው ተጠቃሚዎቸ"}</p>
                         </NavLink>
+                        <NavLink to="/notification" className={`sidebar-link ${location.pathname === '/notification' ? 'active-link-bg' : ''}`}>
+                            <img src='/notification.svg' className={image} />
+                            <p>{isEnglish?"Notifications" :"ኖቲፊኬሽንስ"}</p>
+                        </NavLink>
                     </>
                 )}
                 {isAdmin && (
@@ -44,6 +71,8 @@ const SideBar = () => {
                         <img src='/organization.svg' className={image} />
                         <p>{isEnglish?"MyOrgs" :"የምሰራባቸው ድርጅቶቸ"}</p>
                     </NavLink>
+                )}
+                    </>
                 )}
                 <NavLink to="/changepassword" className={`sidebar-link ${location.pathname === '/changepassword' ? 'active-link-bg' : ''}`}>
                     <img src='/changepassword.svg' className={image} />

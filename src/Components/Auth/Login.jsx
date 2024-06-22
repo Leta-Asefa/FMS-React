@@ -39,12 +39,11 @@ const Login = () => {
                 }
             })
             .then(data => {
-                console.log(data)
-
+                
 
                 if (typeof data.error !== 'undefined') {
                     setError(data)
-                }
+                } 
                 else {
 
                     if (typeof data.rootId !== 'undefined') {
@@ -57,7 +56,10 @@ const Login = () => {
                     else {
                         if (data.usersFolder) {
                             localStorage.setItem('orglist', JSON.stringify(data.usersFolder))
-                            localStorage.setItem('organizationName',data.organizationName)
+                            if(formData.username==='@gonder')
+                                localStorage.setItem('organizationName','@gonder')
+                            else
+                                localStorage.setItem('organizationName', data.organizationName)
                             navigate('/orglist',{state:{users:data.usersFolder}})
                         }
                         else
@@ -69,6 +71,7 @@ const Login = () => {
             })
             .catch(error => {
                 console.error('Fetch error:', error);
+                navigate('/signup')
             });
 
 

@@ -12,6 +12,7 @@ import Logout from './Components/Auth/Logout';
 import WaitingPage from './Components/Partials/WaitingPage';
 import OrgList from './Components/OrgList';
 import FileViewer from './Components/FileViewer';
+import Notifications from './Components/Notification';
 
 function App() {
 
@@ -21,10 +22,10 @@ function App() {
         {/* Routes that use MainLayout */}
         <Route element={<MainLayout />}>
 
-          <Route path="/" element={<Home />} />
           <Route path="/home/:id" element={<Home />} />
           <Route path="/adduser" element={<AddUsers />} />
           <Route path="/alloweduser" element={<UsersControl />} />
+          <Route path="/notification" element={<Notifications />} />
           <Route path="/changepassword" element={<ChangePassword />} />
           <Route path="/waitingpage" element={<WaitingPage />} />
           <Route path='/orglist' element={<OrgList />} />
@@ -33,6 +34,7 @@ function App() {
 
         {/* Routes that use AuthLayout */}
         <Route element={<AuthLayout />}>
+          <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path='/logout' element={<Logout />} />
