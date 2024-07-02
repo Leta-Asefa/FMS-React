@@ -17,6 +17,9 @@ const Signup = () => {
     const [isOrg, setIsOrg] = useState(false)
     const navigate = useNavigate()
     const { setContextRootId } = useContext(UserContext)
+    const gonderHistory1 = `ጎንደር ከ1628 ዓ ም ጀምሮ ለ200 ዓመታት የአፄወች መናገሻ በመሆኗ የምትታወቅ የዓለም ታዋቂ የታሪክ ተመራማሪወችን የምትስብ ውብ ከተማ ናት።`
+    const gonderHistory2 = `የዘመኑ አፄዎች የገነቧቸው ቤተ መንግስቶችና አብያተ ክርስቲያናት  (ፋሲል ግንብ፣ የጉዝራ፣ ጎመንጌ- አዘዞ ገነተ እየሱስ፣ ጎርጎራ ማንዴ ወዘተ) የከተማዋንና የኢትዮጵያን ታሪክ ለዓለም ጥሩ ገፅታ ለመሆናቸው ከተለያዩ  ክፍለዓለማት እንደ ጎርፍ ለጉብኝትና ታሪክን ለመቃኘት የሚተመውን ለአብነት መጥቀሳችን ሁላችንም ያስማማናል።`
+
 
 
     const handleChange = (e) => {
@@ -77,13 +80,19 @@ const Signup = () => {
         <div className="signup-container h-full">
            
            <div className='w-full h-full relative'>
-            <div class="absolute inset-0 bg-black bg-opacity-30 flex justify-center items-center">  </div>
-                <img src='/fasiledes.jpg' className='w-full h-full '/>
+                <div class="absolute inset-0 bg-black bg-opacity-30 flex justify-center items-center">  </div>
+                <div class="text-white text-xl absolute inset-0  flex flex-col justify-between items-center p-10 ">
+                    <div className="text-center">{gonderHistory1}</div>
+                    <div className="text-center text-lg">{gonderHistory2}</div>
+                </div>
+                <img src='/fasiledes.jpg' className='w-full h-full ' />
             </div>
 
 
             <form className="signup-form  mx-auto" onSubmit={handleSubmit}>
-            <h2 className=" text-3xl text-center text-black font-extrabold mt-5"> Gonder City Adminstration Document Managment System</h2>
+            <h2 className=" text-4xl text-center text-black font-extrabold mt-10"> የጎንደር ከተማ አስተዳደር መረጃ መቆጣጠሪያ ሲስተም</h2>
+                <h2 className=" text-xl text-center text-black font-extrabold mt-4"> Gonder City Adminstration Document Managment System</h2>
+
                 <h2 className="signup-title mt-16">Signup</h2>
 
                 <div className="mb-4 ">

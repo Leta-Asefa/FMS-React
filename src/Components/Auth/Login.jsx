@@ -13,7 +13,8 @@ const Login = () => {
     const [error, setError] = useState(null)
     const { setContextRootId, setIsLoggedIn, contextRootId } = useContext(UserContext)
     const navigate = useNavigate()
-
+    const gonderHistory1 = `ጎንደር ከ1628 ዓ ም ጀምሮ ለ200 ዓመታት የአፄወች መናገሻ በመሆኗ የምትታወቅ የዓለም ታዋቂ የታሪክ ተመራማሪወችን የምትስብ ውብ ከተማ ናት።`
+    const gonderHistory2 = `የዘመኑ አፄዎች የገነቧቸው ቤተ መንግስቶችና አብያተ ክርስቲያናት  (ፋሲል ግንብ፣ የጉዝራ፣ ጎመንጌ- አዘዞ ገነተ እየሱስ፣ ጎርጎራ ማንዴ ወዘተ) የከተማዋንና የኢትዮጵያን ታሪክ ለዓለም ጥሩ ገፅታ ለመሆናቸው ከተለያዩ  ክፍለዓለማት እንደ ጎርፍ ለጉብኝትና ታሪክን ለመቃኘት የሚተመውን ለአብነት መጥቀሳችን ሁላችንም ያስማማናል።`
 
 
     const handleChange = (e) => {
@@ -39,28 +40,28 @@ const Login = () => {
                 }
             })
             .then(data => {
-                
+
 
                 if (typeof data.error !== 'undefined') {
                     setError(data)
-                } 
+                }
                 else {
 
                     if (typeof data.rootId !== 'undefined') {
                         setContextRootId(data.rootId)
                         localStorage.setItem('contextRootId', data.rootId)
                         localStorage.setItem('organizationName', data.organizationName)
-                        localStorage.setItem('orgUsername',data.username)
+                        localStorage.setItem('orgUsername', data.username)
                         navigate('/home/' + data.rootId)
                     }
                     else {
                         if (data.usersFolder) {
                             localStorage.setItem('orglist', JSON.stringify(data.usersFolder))
-                            if(formData.username==='@gonder')
-                                localStorage.setItem('organizationName','@gonder')
+                            if (formData.username === '@gonder')
+                                localStorage.setItem('organizationName', '@gonder')
                             else
                                 localStorage.setItem('organizationName', data.organizationName)
-                            navigate('/orglist',{state:{users:data.usersFolder}})
+                            navigate('/orglist', { state: { users: data.usersFolder } })
                         }
                         else
                             navigate('/waitingpage')
@@ -81,14 +82,22 @@ const Login = () => {
     return (
         <div className="signup-container" >
 
-           
+
             <div className='w-full h-full relative'>
-            <div class="absolute inset-0 bg-black bg-opacity-30 flex justify-center items-center">  </div>
-                <img src='/fasiledes.jpg' className='w-full h-full '/>
+                <div class="absolute inset-0 bg-black bg-opacity-30 flex justify-center items-center">  </div>
+                <div class="text-white text-xl absolute inset-0  flex flex-col justify-between items-center p-10 ">
+                    <div className="text-center">{gonderHistory1}</div>
+                    <div className="text-center text-lg">{gonderHistory2}</div>
+                </div>
+                <img src='/fasiledes.jpg' className='w-full h-full ' />
             </div>
 
             <form className="signup-form mx-auto" onSubmit={handleSubmit}>
-                <h2 className=" text-3xl text-center text-black font-extrabold mt-10"> Gonder City Adminstration Document Managment System</h2>
+                <h2 className=" text-4xl text-center text-black font-extrabold mt-10"> የጎንደር ከተማ አስተዳደር መረጃ መቆጣጠሪያ ሲስተም</h2>
+                <h2 className=" text-xl text-center text-black font-extrabold mt-4"> Gonder City Adminstration Document Managment System</h2>
+
+
+
                 <h2 className="signup-title mt-24">Login</h2>
 
                 <input
