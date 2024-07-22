@@ -32,7 +32,7 @@ const Signup = () => {
 
 
 
-        fetch('http://localhost:4000/auth/signup', {
+        fetch('http://gonderdms.onrender.com/auth/signup', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),

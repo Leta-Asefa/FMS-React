@@ -18,12 +18,12 @@ const Login = () => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
+   
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('handle submit called')
 
-        fetch('http://localhost:4000/auth/login', {
+        fetch('http://gonderdms.onrender.com/auth/login', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),

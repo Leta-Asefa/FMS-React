@@ -14,16 +14,16 @@ const Notifications = () => {
         let endpoint;
         switch (type) {
             case 'all':
-                endpoint = 'http://localhost:4000/notification/all';
+                endpoint = 'http://gonderdms.onrender.com/notification/all';
                 break;
             case 'read':
-                endpoint = 'http://localhost:4000/notification/read';
+                endpoint = 'http://gonderdms.onrender.com/notification/read';
                 break;
             case 'unread':
-                endpoint = 'http://localhost:4000/notification/unread';
+                endpoint = 'http://gonderdms.onrender.com/notification/unread';
                 break;
             default:
-                endpoint = 'http://localhost:4000/notification/all';
+                endpoint = 'http://gonderdms.onrender.com/notification/all';
         }
 
         try {
@@ -46,7 +46,7 @@ const Notifications = () => {
 
     const markAsRead = async (id) => {
         try {
-            const response = await fetch(`http://localhost:4000/notification/read/${id}`, {
+            const response = await fetch(`http://gonderdms.onrender.com/notification/read/${id}`, {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -65,7 +65,7 @@ const Notifications = () => {
 
     const markAllAsRead = async () => {
         try {
-            const response = await fetch(`http://localhost:4000/notification/markAllAsRead`, {
+            const response = await fetch(`http://gonderdms.onrender.com/notification/markAllAsRead`, {
                 method: 'PATCH',
                 credentials: 'include'
             });
