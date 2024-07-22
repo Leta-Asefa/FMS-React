@@ -20,7 +20,7 @@ const FileViewer = () => {
 
     const fetchFile = async (fileId) => {
         try {
-            const response = await fetch('http://gonderdms.onrender.com/folders/openfile/' + fileId, {
+            const response = await fetch('https://gonderdms.onrender.com/folders/openfile/' + fileId, {
                 method: 'GET',
                 credentials: 'include',
             });

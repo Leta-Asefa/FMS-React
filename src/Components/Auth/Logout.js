@@ -8,7 +8,7 @@ const Logout = () => {
     const navigate = useNavigate()
     const { setName,setPath,setCurrentFolderId,setSelectedItems,setSelectedItemsLength,setSelectedForTransfer,setContextRootId,setIsLoggedIn}=useContext(UserContext)
     useEffect(() => {
-        fetch('http://gonderdms.onrender.com/auth/logout', {
+        fetch('https://gonderdms.onrender.com/auth/logout', {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials:"include"

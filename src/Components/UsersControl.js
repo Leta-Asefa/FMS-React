@@ -17,7 +17,7 @@ const UsersControl = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://gonderdms.onrender.com/folders/users/'+localStorage.getItem('contextRootId'), {
+        const response = await fetch('https://gonderdms.onrender.com/folders/users/'+localStorage.getItem('contextRootId'), {
           method: 'GET',
           credentials: 'include',
         });
@@ -38,7 +38,7 @@ const UsersControl = () => {
 
   const removeAccess = async (username) => {
     const data={folderId:contextRootId  ,username}
-    const response = await fetch('http://gonderdms.onrender.com/folders/removeUserAccess', {
+    const response = await fetch('https://gonderdms.onrender.com/folders/removeUserAccess', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ const UsersControl = () => {
    
     try {
       const user = updatedUsers.find(user => user._id === userId);
-      const response = await fetch('http://gonderdms.onrender.com/folders/updatePermission/'+contextRootId, {
+      const response = await fetch('https://gonderdms.onrender.com/folders/updatePermission/'+contextRootId, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

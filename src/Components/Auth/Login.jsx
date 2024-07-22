@@ -23,7 +23,7 @@ const Login = () => {
         e.preventDefault();
         console.log('handle submit called')
 
-        fetch('http://gonderdms.onrender.com/auth/login', {
+        fetch('https://gonderdms.onrender.com/auth/login', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),

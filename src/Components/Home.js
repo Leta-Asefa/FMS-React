@@ -19,7 +19,7 @@ const Home = () => {
     const { id } = useParams()
     const [rootId, setRootId] = useState('')
     const navigate = useNavigate()
-    const baseUrl = 'http://gonderdms.onrender.com/folders/all_populated/'
+    const baseUrl = 'https://gonderdms.onrender.com/folders/all_populated/'
     const [fileData, setFileData] = useState(null);
     const [fileType, setFileType] = useState('');
     const [fileName, setFileName] = useState('');
@@ -149,7 +149,7 @@ const Home = () => {
 
     const fetchFile = async (fileId) => {
         try {
-            const response = await fetch('http://gonderdms.onrender.com/folders/openfile/' + fileId, {
+            const response = await fetch('https://gonderdms.onrender.com/folders/openfile/' + fileId, {
                 method: 'GET',
                 credentials: 'include',
             });
