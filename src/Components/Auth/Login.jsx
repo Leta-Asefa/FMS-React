@@ -13,9 +13,7 @@ const Login = () => {
     const [error, setError] = useState(null)
     const { setContextRootId, setIsLoggedIn, contextRootId } = useContext(UserContext)
     const navigate = useNavigate()
-    const gonderHistory1 = `ጎንደር ከ1628 ዓ ም ጀምሮ ለ200 ዓመታት የአፄወች መናገሻ በመሆኗ የምትታወቅ የዓለም ታዋቂ የታሪክ ተመራማሪወችን የምትስብ ውብ ከተማ ናት።`
-    const gonderHistory2 = `የዘመኑ አፄዎች የገነቧቸው ቤተ መንግስቶችና አብያተ ክርስቲያናት  (ፋሲል ግንብ፣ የጉዝራ፣ ጎመንጌ- አዘዞ ገነተ እየሱስ፣ ጎርጎራ ማንዴ ወዘተ) የከተማዋንና የኢትዮጵያን ታሪክ ለዓለም ጥሩ ገፅታ ለመሆናቸው ከተለያዩ  ክፍለዓለማት እንደ ጎርፍ ለጉብኝትና ታሪክን ለመቃኘት የሚተመውን ለአብነት መጥቀሳችን ሁላችንም ያስማማናል።`
-
+  
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -84,12 +82,10 @@ const Login = () => {
 
 
             <div className='w-full h-full relative'>
-                <div class="absolute inset-0 bg-black bg-opacity-30 flex justify-center items-center">  </div>
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex justify-center items-center">  </div>
                 <div class="text-white text-xl absolute inset-0  flex flex-col justify-between items-center p-10 ">
-                    <div className="text-center">{gonderHistory1}</div>
-                    <div className="text-center text-lg">{gonderHistory2}</div>
-                </div>
-                <img src='/fasiledes.jpg' className='w-full h-full ' />
+                 </div>
+                <img src='/bg.jpg' className='w-full h-full ' />
             </div>
 
             <form className="signup-form mx-auto" onSubmit={handleSubmit}>
