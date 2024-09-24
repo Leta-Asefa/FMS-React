@@ -26,7 +26,7 @@ const FolderList = () => {
         });
         const data = await response.json();
         if (parentId) { 
-            setFolders(folders.map(folder => folder._id === parentId ? { ...folder, subfolders: [...folder.subfolders, data] } : folder));
+            setFolders(folders.map(folder => folder.id === parentId ? { ...folder, subfolders: [...folder.subfolders, data] } : folder));
         } else {
             setFolders([...folders, data]);
         }
@@ -37,7 +37,7 @@ const FolderList = () => {
         await fetch(`http://localhost:5000/folders/${id}`, {
             method: 'DELETE'
         });
-        setFolders(folders.filter(folder => folder._id !== id));
+        setFolders(folders.filter(folder => folder.id !== id));
     };
 
     const uploadFile = async (folderId) => {
@@ -49,15 +49,15 @@ const FolderList = () => {
             body: formData
         });
         const data = await response.json();
-        setFolders(folders.map(folder => folder._id === folderId ? data : folder));
+        setFolders(folders.map(folder => folder.id === folderId ? data : folder));
         setFile(null);
     };
 
     const renderFolders = (folders) => {
         return folders.map(folder => (
-            <li key={folder._id}>
+            <li key={folder.id}>
                 {folder.name}
-                <button onClick={() => deleteFolder(folder._id)}>Delete</button>
+                <button onClick={() => deleteFolder(folder.id)}>Delete</button>
                 <button onClick={() => setSelectedFolder(folder)}>Select</button>
                 {folder.subfolders.length > 0 && (
                     <ul>
@@ -68,11 +68,11 @@ const FolderList = () => {
                     type="file"
                     onChange={(e) => setFile(e.target.files[0])}
                 />
-                <button onClick={() => uploadFile(folder._id)}>Upload File</button>
+                <button onClick={() => uploadFile(folder.id)}>Upload File</button>
                 {folder.files.length > 0 && (
                     <ul>
                         {folder.files.map(file => (
-                            <li key={file._id}>
+                            <li key={file.id}>
                                 {file.name} ({file.size} bytes)
                             </li>
                         ))}
@@ -91,7 +91,7 @@ const FolderList = () => {
                 onChange={(e) => setFolderName(e.target.value)}
                 placeholder="Add new folder"
             />
-            <button onClick={() => addFolder(selectedFolder ? selectedFolder._id : null)}>Add Folder</button>
+            <button onClick={() => addFolder(selectedFolder ? selectedFolder.id : null)}>Add Folder</button>
             <ul>
                 {renderFolders(folders)}
             </ul>

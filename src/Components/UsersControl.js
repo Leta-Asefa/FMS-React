@@ -17,7 +17,7 @@ const UsersControl = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('https://gonderdms.onrender.com/folders/users/'+localStorage.getItem('contextRootId'), {
+        const response = await fetch('http://localhost:4000/folders/users/'+localStorage.getItem('contextRootId'), {
           method: 'GET',
           credentials: 'include',
         });
@@ -38,7 +38,7 @@ const UsersControl = () => {
 
   const removeAccess = async (username) => {
     const data={folderId:contextRootId  ,username}
-    const response = await fetch('https://gonderdms.onrender.com/folders/removeUserAccess', {
+    const response = await fetch('http://localhost:4000/folders/removeUserAccess', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const UsersControl = () => {
   const handleAccessControlChange = async (userId,username, action) => {
 
     const updatedUsers = users.map(user => {
-      if (user._id === userId) {
+      if (user.id === userId) {
         return { ...user, accessControl: action };
       }
       return user;
@@ -75,8 +75,8 @@ const UsersControl = () => {
 
    
     try {
-      const user = updatedUsers.find(user => user._id === userId);
-      const response = await fetch('https://gonderdms.onrender.com/folders/updatePermission/'+contextRootId, {
+      const user = updatedUsers.find(user => user.id === userId);
+      const response = await fetch('http://localhost:4000/folders/updatePermission/'+contextRootId, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -123,13 +123,13 @@ const UsersControl = () => {
       />
       <ul className='grid grid-cols-3 gap-x-5'>
         {filteredUsers.map(user => (
-          <li key={user._id} className='flex flex-wrap justify-between hover:bg-slate-400 p-2 bg-slate-200 mt-1 rounded-lg'>
+          <li key={user.id} className='flex flex-wrap justify-between hover:bg-slate-400 p-2 bg-slate-200 mt-1 rounded-lg'>
             <div>{user.username} <div className='text-xs font-bold'>|| {user.firstName} {user.lastName}</div></div>
             
             <select
               className='rounded-md bg-slate-300'
               value={user.accessControl}
-              onChange={e => handleAccessControlChange(user._id,user.username, e.target.value)}
+              onChange={e => handleAccessControlChange(user.id,user.username, e.target.value)}
             >
               <option value="read">{isEnglish ? "Read" : "መመልከት"}</option>
               <option value="write">{isEnglish ? "Write" : "መጫን"}</option>

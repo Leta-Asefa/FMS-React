@@ -22,7 +22,7 @@ const ChangePassword = () => {
         }
 
         try {
-            const response = await fetch('https://gonderdms.onrender.com/auth/change_password', {
+            const response = await fetch('http://localhost:4000/auth/change_password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

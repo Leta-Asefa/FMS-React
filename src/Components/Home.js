@@ -19,7 +19,7 @@ const Home = () => {
     const { id } = useParams()
     const [rootId, setRootId] = useState('')
     const navigate = useNavigate()
-    const baseUrl = 'https://gonderdms.onrender.com/folders/all_populated/'
+    const baseUrl = 'http://localhost:4000/folders/all_populated/'
     const [fileData, setFileData] = useState(null);
     const [fileType, setFileType] = useState('');
     const [fileName, setFileName] = useState('');
@@ -86,10 +86,12 @@ const Home = () => {
                     console.log("Data ",data)
 
                 if (!id)
-                    setRootId(data._id)
+                    setRootId(data.id)
 
-                const folders = data.subfolders.map((sub) => ({ folderId: sub._id, folderName: sub.name }))
-                const files = data.files.map((file) => ({ fileId: file._id, fileName: file.name }))
+                console.log("data",data)
+
+                const folders = data.subfolders.map((sub) => ({ folderId: sub.id, folderName: sub.name }))
+                const files = data.files.map((file) => ({ fileId: file.id, fileName: file.name }))
 
 
                 if (folders) {
@@ -121,7 +123,7 @@ const Home = () => {
                 setFiles(files)
                 setFolders(folders);
                 setPath(data.path)
-                setCurrentFolderId(data._id)
+                setCurrentFolderId(data.id)
                 setLoading(false);
                 if (!selectedForTransfer) {
                     setSelectedItems({})
@@ -149,7 +151,7 @@ const Home = () => {
 
     const fetchFile = async (fileId) => {
         try {
-            const response = await fetch('https://gonderdms.onrender.com/folders/openfile/' + fileId, {
+            const response = await fetch('http://localhost:4000/folders/openfile/' + fileId, {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -183,7 +185,9 @@ const Home = () => {
                             onChange={() => handleCheckboxChange(folder.folderId, false, id ? id : rootId)}
                         />
 
-                        <Link to={`/home/${folder.folderId}`}><Folder name={folder.folderName} isSelected={!!selectedItems[folder.folderId]?.selected} /></Link>
+                        <Link to={`/home/${folder.folderId}`}>
+                            <Folder name={folder.folderName} isSelected={!!selectedItems[folder.folderId]?.selected} />
+                            </Link>
 
                     </div>
                 ))}

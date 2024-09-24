@@ -32,7 +32,7 @@ const Signup = () => {
 
 
 
-        fetch('https://gonderdms.onrender.com/auth/signup', {
+        fetch('http://localhost:4000/auth/signup', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
@@ -42,7 +42,7 @@ const Signup = () => {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Network response was not ok'+response);
                 }
             })
             .then(data => {
@@ -50,11 +50,11 @@ const Signup = () => {
                     setError(data.error)
                 else {
                     if (formData.organizationName) {
-                        setContextRootId(data.root._id)
-                        localStorage.setItem('contextRootId', data.root._id)
+                        setContextRootId(data.root.id)
+                        localStorage.setItem('contextRootId', data.root.id)
                         localStorage.setItem('organizationName', formData.organizationName)
                         localStorage.setItem('orgUsername',data.username)
-                        navigate('/home/' + data.root._id)
+                        navigate('/home/' + data.root.id)
                     }
                     else
                     {

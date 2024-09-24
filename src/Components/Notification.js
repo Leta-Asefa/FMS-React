@@ -14,16 +14,16 @@ const Notifications = () => {
         let endpoint;
         switch (type) {
             case 'all':
-                endpoint = 'https://gonderdms.onrender.com/notification/all';
+                endpoint = 'http://localhost:4000/notification/all';
                 break;
             case 'read':
-                endpoint = 'https://gonderdms.onrender.com/notification/read';
+                endpoint = 'http://localhost:4000/notification/read';
                 break;
             case 'unread':
-                endpoint = 'https://gonderdms.onrender.com/notification/unread';
+                endpoint = 'http://localhost:4000/notification/unread';
                 break;
             default:
-                endpoint = 'https://gonderdms.onrender.com/notification/all';
+                endpoint = 'http://localhost:4000/notification/all';
         }
 
         try {
@@ -46,7 +46,7 @@ const Notifications = () => {
 
     const markAsRead = async (id) => {
         try {
-            const response = await fetch(`https://gonderdms.onrender.com/notification/read/${id}`, {
+            const response = await fetch(`http://localhost:4000/notification/read/${id}`, {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -55,7 +55,7 @@ const Notifications = () => {
             }
             setNotifications((prevNotifications) =>
                 prevNotifications.map((notification) =>
-                    notification._id === id ? { ...notification, read: true } : notification
+                    notification.id === id ? { ...notification, read: true } : notification
                 )
             );
         } catch (error) {
@@ -65,7 +65,7 @@ const Notifications = () => {
 
     const markAllAsRead = async () => {
         try {
-            const response = await fetch(`https://gonderdms.onrender.com/notification/markAllAsRead`, {
+            const response = await fetch(`http://localhost:4000/notification/markAllAsRead`, {
                 method: 'PATCH',
                 credentials: 'include'
             });
@@ -116,14 +116,14 @@ const Notifications = () => {
                 )}
                 <ul className="list-disc list-inside">
                     {!loading && !error && notifications.map((notification) => (
-                        <li key={notification._id} className="border-b p-2 rounded-lg bg-slate-300 hover:bg-slate-400 py-2 flex justify-between items-center">
+                        <li key={notification.id} className="border-b p-2 rounded-lg bg-slate-300 hover:bg-slate-400 py-2 flex justify-between items-center">
                             <span className='flex gap-2'>
                              <img src='/notification.svg' className='w-6 h-6'/>   {notification.message} 
                             </span>
                             {!notification.read && (
                                 <button
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-4"
-                                    onClick={() => markAsRead(notification._id)}
+                                    onClick={() => markAsRead(notification.id)}
                                 >
                                     Mark as Read
                                 </button>

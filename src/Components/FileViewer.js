@@ -20,7 +20,7 @@ const FileViewer = () => {
 
     const fetchFile = async (fileId) => {
         try {
-            const response = await fetch('https://gonderdms.onrender.com/folders/openfile/' + fileId, {
+            const response = await fetch('http://localhost:4000/folders/openfile/' + fileId, {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -50,7 +50,7 @@ const FileViewer = () => {
                 <ul className='overflow-y-scroll' style={{ maxHeight: "508px" }}>
                     {data.map((file, index) => (
                         <li key={index} className='m-1 bg-slate-300 rounded-md p-3 hover:bg-slate-400'
-                            onDoubleClick={() => handleFileDoubleClick(file._id)}>
+                            onDoubleClick={() => handleFileDoubleClick(file.id)}>
                             {file.name}
                         </li>
                     ))}

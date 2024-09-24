@@ -20,7 +20,7 @@ const FileSearch = () => {
       const username = localStorage.getItem('orgUsername')
       console.log("Username", username)
 
-      const response = await fetch(`https://gonderdms.onrender.com/folders/search/${searchTerm}`, {
+      const response = await fetch(`http://localhost:4000/folders/search/${searchTerm}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: 'include',

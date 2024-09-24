@@ -91,7 +91,7 @@ const MenuBar = () => {
             files: selectedItems,
             parentId: selectedItems.parentId
         }
-        const url = isForMove ? 'https://gonderdms.onrender.com/folders/move' : 'https://gonderdms.onrender.com/folders/copy'
+        const url = isForMove ? 'http://localhost:4000/folders/move' : 'http://localhost:4000/folders/copy'
         console.log("URL ", url)
         console.log("Data ", data)
         try {
@@ -123,7 +123,7 @@ const MenuBar = () => {
             name: folderName
         }
         try {
-            const response = await fetch('https://gonderdms.onrender.com/folders/add_subfolder', {
+            const response = await fetch('http://localhost:4000/folders/add_subfolder', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: 'include',
@@ -153,7 +153,7 @@ const MenuBar = () => {
             });
             formData.append('owner', localStorage.getItem('orgUsername'))
             console.log(formData)
-            const response = await fetch('https://gonderdms.onrender.com/folders/upload/' + currentFolderId, {
+            const response = await fetch('http://localhost:4000/folders/upload/' + currentFolderId, {
                 method: 'POST',
                 body: formData,
                 credentials: 'include'
@@ -191,7 +191,7 @@ const MenuBar = () => {
 
 
             try {
-                const response = await fetch('https://gonderdms.onrender.com/folders/delete', {
+                const response = await fetch('http://localhost:4000/folders/delete', {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                     credentials: 'include',
@@ -232,7 +232,7 @@ const MenuBar = () => {
 
         if (keyToBeRenamed) {
             try {
-                const response = await fetch(isFile ? 'https://gonderdms.onrender.com/folders/rename/file/' + keyToBeRenamed : 'https://gonderdms.onrender.com/folders/rename/' + keyToBeRenamed, {
+                const response = await fetch(isFile ? 'http://localhost:4000/folders/rename/file/' + keyToBeRenamed : 'http://localhost:4000/folders/rename/' + keyToBeRenamed, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     credentials: 'include',

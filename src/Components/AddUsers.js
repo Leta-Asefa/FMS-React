@@ -15,7 +15,7 @@ const AddUsers = () => {
     const fetchData = async () => {
       try {
         // Fetch users from the server
-        const response = await fetch('https://gonderdms.onrender.com/auth/all/users');
+        const response = await fetch('http://localhost:4000/auth/all/users');
         if (!response.ok) {
           throw new Error('Failed to fetch users');
         }
@@ -50,7 +50,7 @@ const AddUsers = () => {
     console.log(selectedUsers)
     try {
 
-      const response = await fetch('https://gonderdms.onrender.com/folders/permission/' + contextRootId, {
+      const response = await fetch('http://localhost:4000/folders/permission/' + contextRootId, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', // Add Content-Type header
